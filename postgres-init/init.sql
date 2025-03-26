@@ -1,0 +1,3 @@
+CREATE DATABASE sole_registrations
+
+CREATE DATABASE vox_aegri
