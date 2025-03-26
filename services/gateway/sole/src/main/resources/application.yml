@@ -1,0 +1,38 @@
+server:
+  port: ${SOLE_PORT:9001}
+spring:
+  application:
+    name: sole
+
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5001/registration}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  sql:
+    init:
+      mode: always
+
+  cloud:
+    zookeeper:
+      discovery:
+        instance-host: ${ZOOKEEPER_HOST:localhost}
+        register: true
+        enabled: true
+
+      connect-string: ${ZOOKEEPER_ADDRESS:localhost:2181}
+
+  kafka:
+    bootstrap-servers: ${KAFKA_ADDRESS:localhost:9092}
+    consumer:
+      group-id: sole
+      auto-offset-reset: earliest
+
+    producer:
+      retries: 3
