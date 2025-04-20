@@ -1,0 +1,2 @@
+CREATE DATABASE sole;
+CREATE DATABASE vox_aegri;
