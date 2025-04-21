@@ -1,0 +1,4 @@
+<div *ngFor="let customerRequest of customerRequestList | async">
+  <p>{{ customerRequest.title }}</p>
+</div>
+<app-requests-creation [voxAegriUrl]="voxAegriUrl"></app-requests-creation>

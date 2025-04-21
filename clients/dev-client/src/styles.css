@@ -1,0 +1,25 @@
+body {
+  background-color: rgb(24, 18, 16);
+}
+
+label, h1, h2, h3, h4 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #f5ece3e8;
+}
+
+input, select, textarea, p, button, h1, h2, h3, h4 {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color: #f0e7dfe8;;
+}
+
+button:hover {
+	background-color: #b6b0aae8;
+	color: #151414e0;
+	cursor: pointer;
+	border: 1px solid #b6b0aae8;
+	border-radius: 4px;
+}
+
+input, textarea, select {
+  background-color: #363533;
+}
