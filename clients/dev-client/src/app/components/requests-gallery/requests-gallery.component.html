@@ -1,1 +1,9 @@
-<p>requests-gallery works!</p>
+<div id="screen-cover" (click)="putDownCover()">
+    <div id="cover-innards" (click)="$event.stopPropagation()">
+        <main>
+            <section id="grid-container">
+                <app-requests-grid [customerRequestList]="customerRequestList!"></app-requests-grid>
+            </section>
+        </main>
+    </div>
+</div>

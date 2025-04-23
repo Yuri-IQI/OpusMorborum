@@ -1,13 +1,15 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" id="customer-request-form">
+  <h2>Quest Form</h2>
+
   <section id="header">
+    <div id="header-left" class="position">
+      <input id="isActive" type="checkbox" formControlName="isActive">
+      <label for="isActive"> {{ form.get('isActive')?.value ? 'Active' : 'Inactive' }} </label>
+    </div>
+
     <div id="header-center" class="position">
       <label for="title">Title:</label>
       <input id="title" type="text" formControlName="title" placeholder="Quest Title">
-    </div>
-
-    <div id="header-right" class="position">
-      <input id="isActive" type="checkbox" formControlName="isActive">
-      <label for="isActive"> {{ form.get('isActive')?.value ? 'Active' : 'Inactive' }} </label>
     </div>
   </section>
 
@@ -22,7 +24,7 @@
         <label for="level">Level:</label>
         <select id="level" formControlName="level">
           <option *ngFor="let level of (requestLevels | keyvalue)" [value]="level.value">
-            {{ level.key }}
+            {{ level.value }}
           </option>
         </select>
       </div>

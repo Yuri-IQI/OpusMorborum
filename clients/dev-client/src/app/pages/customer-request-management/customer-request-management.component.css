@@ -1,0 +1,60 @@
+main {
+    height: 100vh;
+    display: flex;
+}
+
+#menu-callers {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+.creation-caller {
+    background-color: #3e372f;
+    border-radius: 4px;
+    padding: 0.2rem;
+}
+
+.creation-caller:hover {
+    cursor: pointer;
+}
+
+.called {
+    background-color: rgb(104, 103, 96);
+}
+
+#menu-container {
+    flex: 4;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.creator {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+#call-visualizer {
+    width: max-content;
+    height: max-content;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 0.5rem;
+    margin: 0.4rem;
+    background-color: #666261a3;
+    border-radius: 4px;
+
+    p {
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    p:hover {
+        cursor: pointer;
+        color: #f7cba2;
+    }
+}

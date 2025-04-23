@@ -5,11 +5,18 @@ body {
 label, h1, h2, h3, h4 {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: #f5ece3e8;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
 }
 
 input, select, textarea, p, button, h1, h2, h3, h4 {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  color: #f0e7dfe8;;
+	font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+	color: #f0e7dfe8;
+}
+
+input, select, textarea, button {
+  border: #b0a19b 1px solid;
+	border-radius: 4px;
 }
 
 button:hover {
@@ -21,5 +28,14 @@ button:hover {
 }
 
 input, textarea, select {
-  background-color: #363533;
+	background-color: #363533;
+	width: 100%;
+	align-self: flex-end;
+  font-size: 11pt;
+  padding: 0.2em;
+}
+
+input, select {
+  box-sizing: border-box;
+  padding: 0.2rem;
 }

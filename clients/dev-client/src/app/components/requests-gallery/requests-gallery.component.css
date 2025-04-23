@@ -1,0 +1,23 @@
+#screen-cover {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+    background-color: #5e5a59d6;
+    overflow: hidden;
+    pointer-events: auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#cover-innards {
+    width: 80%;
+    height: 90%;
+
+    background-color: #373330;
+
+}

@@ -1,4 +1,30 @@
-<div *ngFor="let customerRequest of customerRequestList | async">
-  <p>{{ customerRequest.title }}</p>
-</div>
-<app-requests-creation [voxAegriUrl]="voxAegriUrl"></app-requests-creation>
+<main>
+  <section id="menu-callers">
+    <div *ngFor="let menu of menuList" class="callers-container">
+      <h2 
+        class="creation-caller" 
+        [class.called]="menuStatusMap.get(menu)" 
+        (click)="toggleMenu(menu)">
+        {{ menu.charAt(0) + menu.slice(1).toLowerCase() }}
+      </h2>
+    </div>
+  </section>
+  
+  <section id="menu-container">
+    <app-requests-creation
+      *ngIf="menuStatusMap.get(MenuTypes.QUEST)"
+      [voxAegriUrl]="voxAegriUrl"
+      class="creator">
+    </app-requests-creation>
+  </section>
+
+  <div id="call-visualizer" *ngIf="!isVisualizerActive" (click)="openGallery()">
+    <p>Gallery</p>
+  </div>
+</main>
+
+<app-requests-gallery 
+  *ngIf="isVisualizerActive" 
+  (close)="openGallery()"
+  [customerRequestList]="customerRequestList!">
+</app-requests-gallery>
