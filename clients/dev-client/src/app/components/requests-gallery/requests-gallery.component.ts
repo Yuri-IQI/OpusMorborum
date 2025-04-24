@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-requests-gallery',
   imports: [RequestsGridComponent],
+  standalone: true,
   templateUrl: './requests-gallery.component.html',
   styleUrl: './requests-gallery.component.css'
 })

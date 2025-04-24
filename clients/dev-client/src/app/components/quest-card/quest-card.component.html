@@ -1,0 +1,39 @@
+<ng-container *ngIf="questStatus && !quest">
+    <div
+        class="customer-request"
+        [id]="'request-' + questStatus.id"
+    >
+    <span class="request-box title" (click)="editQuest.emit(questStatus.quest)">
+        {{ questStatus.quest.title }}
+    </span>
+
+    <span class="request-box-info">
+        <span class="request-box reward">{{ questStatus.quest.baseReward }}</span>
+        <img
+        class="level-icon"
+        [src]="questLevelIconMap.get(questStatus.quest.level.toString())"
+        [alt]="'Level ' + questStatus.quest.level + ' icon'"
+        />
+    </span>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="quest">
+    <div
+        class="customer-request"
+        [id]="'request-' + quest.customerRequestId"
+    >
+        <span class="request-box title">
+            {{ quest.title }}
+        </span>
+
+        <span class="request-box-info">
+            <span class="request-box reward">{{ quest.baseReward }}</span>
+            <img
+                class="level-icon"
+                [src]="questLevelIconMap.get(quest.level.toString())"
+                [alt]="'Level ' + quest.level + ' icon'"
+            />
+        </span>
+    </div>
+</ng-container>

@@ -18,9 +18,7 @@
     </app-requests-creation>
   </section>
 
-  <div id="call-visualizer" *ngIf="!isVisualizerActive" (click)="openGallery()">
-    <p>Gallery</p>
-  </div>
+  <button id="call-visualizer" *ngIf="!isVisualizerActive" (click)="openGallery()">Gallery</button>
 </main>
 
 <app-requests-gallery 

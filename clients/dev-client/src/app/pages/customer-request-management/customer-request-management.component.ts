@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { RequestsCreationComponent } from "../../components/requests-creation/requests-creation.component";
 import { MenuType } from '../../types/enums/menu-type';
 import { RequestsGalleryComponent } from '../../components/requests-gallery/requests-gallery.component';
+import { EventBusService } from '../../services/event-bus.service';
 
 @Component({
   selector: 'app-customer-request-management',
@@ -29,10 +30,14 @@ export class CustomerRequestManagementComponent implements OnInit {
   menuList: MenuType[] = [...this.menuStatusMap.keys()];
   isVisualizerActive = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private eventBus: EventBusService) {}
 
   ngOnInit(): void {
     this.loadCustomerRequests();
+  
+    this.eventBus.event$.subscribe(() => {
+      console.log('Event received!');
+    });
   }
 
   private loadCustomerRequests(): void {
@@ -46,5 +51,5 @@ export class CustomerRequestManagementComponent implements OnInit {
 
   openGallery(): void {
     this.isVisualizerActive = !this.isVisualizerActive;
-  }  
+  }
 }

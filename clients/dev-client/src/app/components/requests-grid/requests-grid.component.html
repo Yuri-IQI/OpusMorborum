@@ -1,3 +1,5 @@
-<div>
-    
+<div class="quest-grid">    
+    @for (quest of customerRequestList | async; track quest.customerRequestId) {
+        <app-quest-card [quest]="quest" [visibility]="visibilityEnum"></app-quest-card>
+    }
 </div>

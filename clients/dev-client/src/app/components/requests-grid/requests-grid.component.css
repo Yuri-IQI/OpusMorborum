@@ -1,0 +1,42 @@
+.quest-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(12em, 1fr));
+  grid-template-rows: repeat(3, minmax(6em, 1fr));
+  overflow: hidden;
+  gap: 1.2%;
+  margin: 1%;
+  grid-auto-flow: dense;
+}
+
+#quest-grid-nav-buttons {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.nav-bt {
+  cursor: pointer;
+  background: #3f3837;
+  border: 1px solid black;
+  color: #b3a7a5;
+  box-shadow: none;
+}
+
+.nav-bt:disabled {
+  cursor: not-allowed;
+  color: white;
+  background-color: white;
+  text-shadow: none;
+}
+
+.nav-bt:disabled:hover {
+  color: white;
+  background-color: white;
+  text-shadow: none;
+}
+
+.nav-bt:hover {
+  background: #b3a7a5;
+  color: #3f3837;
+}
