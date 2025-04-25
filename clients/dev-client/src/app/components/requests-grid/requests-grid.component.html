@@ -1,5 +1,24 @@
-<div class="quest-grid">    
-    @for (quest of customerRequestList | async; track quest.customerRequestId) {
-        <app-quest-card [quest]="quest" [visibility]="visibilityEnum"></app-quest-card>
-    }
+<div id="grid-container">
+    <div class="grid-content">    
+        @for (quest of customerRequestList | async; track quest.customerRequestId) {
+            <app-quest-card [quest]="quest" [visibility]="visibilityEnum"></app-quest-card>
+        }
+    </div>
+
+    <div id="grid-nav">
+        <button
+            class="nav-bt"
+            (click)="goToPage(currentPage - 1)"
+            [disabled]="currentPage === 1"
+        >
+            Prev
+        </button>
+        <button
+            class="nav-bt"
+            (click)="goToPage(currentPage + 1)"
+            [disabled]="(totalPages$ | async) === currentPage"
+        >
+            Next
+        </button>
+    </div>
 </div>

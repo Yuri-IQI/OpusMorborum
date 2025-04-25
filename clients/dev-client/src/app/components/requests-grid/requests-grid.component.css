@@ -1,4 +1,4 @@
-.quest-grid {
+.grid-content {
   display: grid;
   grid-template-columns: repeat(4, minmax(12em, 1fr));
   grid-template-rows: repeat(3, minmax(6em, 1fr));
@@ -8,7 +8,7 @@
   grid-auto-flow: dense;
 }
 
-#quest-grid-nav-buttons {
+#grid-nav {
   display: flex;
   width: 100%;
   align-items: flex-start;

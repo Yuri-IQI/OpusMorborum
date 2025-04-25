@@ -13,8 +13,10 @@ import { CommonModule } from '@angular/common';
 })
 export class RequestsCreationComponent {
   form!: FormGroup;
+  jsonForm!: FormGroup;
   requestLevels = Object.values(RequestLevelEnum).filter(value => typeof value === 'number') as number[];
   @Input() voxAegriUrl!: string;
+  selectedMode: string = 'FORM';
 
   constructor(private fb: FormBuilder) {}
 
@@ -26,8 +28,23 @@ export class RequestsCreationComponent {
       level: [null, Validators.required],
       baseReward: [0, [Validators.required, Validators.min(0)]],
       isActive: [true],
-      author: ['', Validators.required]
+      author: ['', Validators.required],
     });
+
+    this.jsonForm = this.fb.group({
+      jsonInput: ['', Validators.required]
+    })
+  }
+
+  jsonValidator() {
+    return (control: any) => {
+      try {
+        JSON.parse(control.value);
+        return null;
+      } catch (e) {
+        return { invalidJson: true };
+      }
+    };
   }
 
   onSubmit() {
@@ -37,9 +54,12 @@ export class RequestsCreationComponent {
         level: RequestLevelEnum[this.form.value.level],
         baseReward: parseFloat(this.form.value.baseReward)
       };
-
-      console.log('Customer Request:', requestBody);
       this.createQuest(requestBody);
+    }
+  }
+  onSubmitJson() {
+    if (this.jsonForm.valid) {
+
     }
   }
 
@@ -67,5 +87,10 @@ export class RequestsCreationComponent {
       .catch(error => {
         console.error('Error:', error);
       });
+  }
+
+  selectMode(mode: string) {
+    if (this.selectedMode === 'FORM' && mode === 'JSON') this.selectedMode = 'JSON';
+    if (this.selectedMode === 'JSON' && mode === 'FORM') this.selectedMode = 'FORM';
   }
 }

@@ -21,6 +21,7 @@ import org.jboss.resteasy.reactive.RestResponse;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("/customer-request")
 @Produces(MediaType.APPLICATION_JSON)
@@ -48,6 +49,21 @@ public class CustomerRequestResource {
                                 .status(Response.Status.CREATED)
                                 .build()
                 );
+    }
+    
+    @POST
+    @Path("/create-many")
+    public Uni<RestResponse<List<CustomerReqResponseDto>>> createManyCustomerRequests(@Valid List<CustomerIssueRequestDto> customerIssueRequestDtoList) {
+    	return customerRequestService.createManyCustomerRequests(customerIssueRequestDtoList)
+    			.onFailure().recoverWithItem(e -> {
+                    Log.errorf("Error creating customer request: {}", e.getMessage());
+                    return null;
+                })
+    			.onItem().ifNotNull().transform(customerRequestList -> 
+    					RestResponse.ResponseBuilder.ok(customerRequestList)
+    							.status(Response.Status.CREATED)
+    							.build()
+    			);
     }
 
     @GET

@@ -9,6 +9,20 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
+#select-mode {
+  display: flex;
+  justify-content: space-between;
+
+  h2 {
+    cursor: pointer;
+    color: #a1a09d;
+  }
+}
+
+.selectedMode {
+  color: white !important;
+}
+
 section {
   padding: 0.2rem;
   border-radius: 4px;

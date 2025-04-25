@@ -1,49 +1,71 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" id="customer-request-form">
-  <h2>Quest Form</h2>
+  <div id="select-mode">
+    <h2 [class.selectedMode]="selectedMode == 'FORM'" (click)="selectMode('FORM')">Quest Form</h2>
+    <h2 [class.selectedMode]="selectedMode == 'JSON'" (click)="selectMode('JSON')">Quest JSON</h2>
+  </div>
 
-  <section id="header">
-    <div id="header-left" class="position">
-      <input id="isActive" type="checkbox" formControlName="isActive">
-      <label for="isActive"> {{ form.get('isActive')?.value ? 'Active' : 'Inactive' }} </label>
-    </div>
+  <ng-container *ngIf="selectedMode == 'FORM'">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <section id="header">
+        <div id="header-left" class="position">
+          <input id="isActive" type="checkbox" formControlName="isActive">
+          <label for="isActive"> {{ form.get('isActive')?.value ? 'Active' : 'Inactive' }} </label>
+        </div>
+    
+        <div id="header-center" class="position">
+          <label for="title">Title:</label>
+          <input id="title" type="text" formControlName="title" placeholder="Quest Title">
+        </div>
+      </section>
+    
+      <section id="middle">
+        <div id="middle-left" class="position">
+          <label for="description">Description:</label>
+          <textarea id="description" placeholder="Quest Description" formControlName="description" rows="5" maxlength="250"></textarea>
+        </div>
+    
+        <div id="middle-right" class="position">
+          <div id="middle-right-top" class="position">
+            <label for="level">Level:</label>
+            <select id="level" formControlName="level">
+              <option *ngFor="let level of (requestLevels | keyvalue)" [value]="level.value">
+                {{ level.value }}
+              </option>
+            </select>
+          </div>
+    
+          <div id="middle-right-bottom" class="position">
+            <label for="baseReward">Base Reward:</label>
+            <input id="baseReward" type="number" formControlName="baseReward" >
+          </div>
+        </div>
+      </section>
+    
+      <section id="bottom">
+        <div id="bottom-left" class="position">
+          <label for="author">Author:</label>
+          <input id="author" type="text" placeholder="Quest Author" formControlName="author">
+        </div>
+    
+        <div id="bottom-right" class="position">
+          <button type="submit" [disabled]="form.invalid">Submit</button>
+        </div>
+      </section>
+    </form>
+  </ng-container>
 
-    <div id="header-center" class="position">
-      <label for="title">Title:</label>
-      <input id="title" type="text" formControlName="title" placeholder="Quest Title">
-    </div>
-  </section>
-
-  <section id="middle">
-    <div id="middle-left" class="position">
-      <label for="description">Description:</label>
-      <textarea id="description" placeholder="Quest Description" formControlName="description" rows="5" maxlength="250"></textarea>
-    </div>
-
-    <div id="middle-right" class="position">
-      <div id="middle-right-top" class="position">
-        <label for="level">Level:</label>
-        <select id="level" formControlName="level">
-          <option *ngFor="let level of (requestLevels | keyvalue)" [value]="level.value">
-            {{ level.value }}
-          </option>
-        </select>
+  <ng-container *ngIf="selectedMode === 'JSON'">
+    <form [formGroup]="jsonForm" (ngSubmit)="onSubmitJson()">
+      <div>
+        <label for="jsonInput">Write down the JSON for the quests:</label>
+        <textarea
+          id="jsonInput"
+          formControlName="jsonInput"
+        ></textarea>
       </div>
-
-      <div id="middle-right-bottom" class="position">
-        <label for="baseReward">Base Reward:</label>
-        <input id="baseReward" type="number" formControlName="baseReward" >
+      <div id="bottom-right" class="position">
+        <button type="submit" [disabled]="jsonForm.invalid">Submit</button>
       </div>
-    </div>
-  </section>
-
-  <section id="bottom">
-    <div id="bottom-left" class="position">
-      <label for="author">Author:</label>
-      <input id="author" type="text" placeholder="Quest Author" formControlName="author">
-    </div>
-
-    <div id="bottom-right" class="position">
-      <button type="submit" [disabled]="form.invalid">Submit</button>
-    </div>
-  </section>
+    </form>
+  </ng-container>  
 </form>

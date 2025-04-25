@@ -6,6 +6,7 @@ import io.quarkus.logging.Log;
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.aegrotatio.kafka.Communicator;
 import org.aegrotatio.models.CustomerRequestEntity;
@@ -107,6 +108,10 @@ public class CustomerRequestService {
                 .onItem().transform(persisted -> customerRequestMapper.toResponse(persisted))
                 .onItem().ifNotNull().transform(persisted -> persisted);
     }
+    
+    public Uni<List<CustomerReqResponseDto>> createManyCustomerRequests(@Valid List<CustomerIssueRequestDto> customerIssueRequestDtoList) {
+    	return createManyCustomerRequests(customerIssueRequestDtoList);
+    }
 
     @WithSession
     public Uni<List<CustomerReqResponseDto>> getAllCustomerRequests() {
@@ -132,6 +137,14 @@ public class CustomerRequestService {
     public Uni<CustomerRequestEntity> addCustomerRequest(CustomerRequestEntity customerRequest) {
         return customerRequest.persistAndFlush()
                 .map(persisted -> customerRequest);
+    }
+    
+    @WithTransaction
+    public Uni<List<CustomerRequestEntity>> addManyCustomerRequests(List<CustomerRequestEntity> customerRequestList) {
+    	return Uni.createFrom().item(customerRequestList.stream().map(quest -> {
+    		quest.persistAndFlush();
+    		return quest;
+    	}).toList());
     }
 
     @WithSession
