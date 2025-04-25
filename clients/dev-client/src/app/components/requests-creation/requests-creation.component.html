@@ -11,19 +11,19 @@
           <input id="isActive" type="checkbox" formControlName="isActive">
           <label for="isActive"> {{ form.get('isActive')?.value ? 'Active' : 'Inactive' }} </label>
         </div>
-    
+
         <div id="header-center" class="position">
           <label for="title">Title:</label>
           <input id="title" type="text" formControlName="title" placeholder="Quest Title">
         </div>
       </section>
-    
+
       <section id="middle">
         <div id="middle-left" class="position">
           <label for="description">Description:</label>
           <textarea id="description" placeholder="Quest Description" formControlName="description" rows="5" maxlength="250"></textarea>
         </div>
-    
+
         <div id="middle-right" class="position">
           <div id="middle-right-top" class="position">
             <label for="level">Level:</label>
@@ -33,20 +33,20 @@
               </option>
             </select>
           </div>
-    
+
           <div id="middle-right-bottom" class="position">
             <label for="baseReward">Base Reward:</label>
             <input id="baseReward" type="number" formControlName="baseReward" >
           </div>
         </div>
       </section>
-    
+
       <section id="bottom">
         <div id="bottom-left" class="position">
           <label for="author">Author:</label>
           <input id="author" type="text" placeholder="Quest Author" formControlName="author">
         </div>
-    
+
         <div id="bottom-right" class="position">
           <button type="submit" [disabled]="form.invalid">Submit</button>
         </div>
@@ -64,8 +64,8 @@
         ></textarea>
       </div>
       <div id="bottom-right" class="position">
-        <button type="submit" [disabled]="jsonForm.invalid">Submit</button>
+        <button type="submit" [class.bt-ready]="!jsonForm.invalid" [disabled]="jsonForm.invalid">Submit</button>
       </div>
     </form>
-  </ng-container>  
+  </ng-container>
 </form>

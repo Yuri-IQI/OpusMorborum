@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RequestLevelEnum } from '../../types/enums/request-level-enum';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { RequestLevelEnum, RequestLevelEnumNameMap } from '../../types/enums/request-level-enum';
 import { CustomerRequest } from '../../types/interfaces/customer-request';
 import { CommonModule } from '@angular/common';
+import { response } from 'express';
 
 @Component({
   selector: 'app-requests-creation',
@@ -32,16 +33,17 @@ export class RequestsCreationComponent {
     });
 
     this.jsonForm = this.fb.group({
-      jsonInput: ['', Validators.required]
-    })
+      jsonInput: ['', [Validators.required, this.jsonValidator()]]
+    });
   }
 
   jsonValidator() {
-    return (control: any) => {
+    return (control: AbstractControl): ValidationErrors | null => {
       try {
-        JSON.parse(control.value);
+        const parsed = JSON.parse(control.value);
+        if (!Array.isArray(parsed)) return { invalidJson: true };
         return null;
-      } catch (e) {
+      } catch {
         return { invalidJson: true };
       }
     };
@@ -49,7 +51,7 @@ export class RequestsCreationComponent {
 
   onSubmit() {
     if (this.form.valid) {
-      const requestBody = {
+      const requestBody: CustomerRequest = {
         ...this.form.value,
         level: RequestLevelEnum[this.form.value.level],
         baseReward: parseFloat(this.form.value.baseReward)
@@ -57,40 +59,66 @@ export class RequestsCreationComponent {
       this.createQuest(requestBody);
     }
   }
+
   onSubmitJson() {
     if (this.jsonForm.valid) {
+      try {
+        const jsonInput = this.jsonForm.value.jsonInput;
+        const parsedRequests = JSON.parse(jsonInput) as CustomerRequest[];
 
+        parsedRequests.forEach(request => {
+          const cleanedRequest: CustomerRequest = {
+            ...request,
+            level: request.level,
+            baseReward: parseFloat(request.baseReward as any)
+          };
+          this.createQuest(cleanedRequest);
+        });
+
+        this.jsonForm.reset();
+      } catch (e) {
+        console.error('Invalid JSON structure:', e);
+      }
+    }
+  }
+
+  private async createRequest(endpoint: string, method: 'POST' | 'GET' | 'PUT' | 'DELETE', reqBody: any | null = null) {
+    const url = `${this.voxAegriUrl}${endpoint}`;
+    const options: RequestInit = {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      ...(reqBody ? { body: JSON.stringify(reqBody) } : {})
+    };
+
+    try {
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        throw new Error(`Request to ${url} failed with status ${response.status}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error(`Error during ${method} ${endpoint}:`, error);
+      throw error;
     }
   }
 
   createQuest(requestBody: CustomerRequest) {
-    const url = `${this.voxAegriUrl}/customer-request`;
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(requestBody)
-    };
-
-    fetch(url, options)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
+    this.createRequest('/customer-request', 'POST', requestBody)
       .then(data => {
-        console.log('Success:', data);
+        console.log('Single request created:', data);
         this.form.reset();
-      })
-      .catch(error => {
-        console.error('Error:', error);
+      });
+  }
+
+  createListOfQuests(requestList: CustomerRequest[]) {
+    this.createRequest('/customer-request/create-many', 'POST', requestList)
+      .then(data => {
+        console.log('Batch request created:', data);
+        this.jsonForm.reset();
       });
   }
 
   selectMode(mode: string) {
-    if (this.selectedMode === 'FORM' && mode === 'JSON') this.selectedMode = 'JSON';
-    if (this.selectedMode === 'JSON' && mode === 'FORM') this.selectedMode = 'FORM';
+    this.selectedMode = mode;
   }
 }
