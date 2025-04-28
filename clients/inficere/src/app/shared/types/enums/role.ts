@@ -1,0 +1,4 @@
+export enum Role {
+  APOTHECARY = 'APOTHECARY',
+  HERBALIST = 'HERBALIST'
+}

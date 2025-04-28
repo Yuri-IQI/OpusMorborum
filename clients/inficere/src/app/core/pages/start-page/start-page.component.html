@@ -1,0 +1,24 @@
+<main>
+  <section id="top">
+    <h1>Opus Morborum</h1>
+  </section>
+  <section id="middle">
+    <div id="codes-area">
+      <span id="apothecary-group">
+        <label for="apothecary-code">Enter Apothecary Code:</label>
+        <input type="text" name="apothecary-code" #apothecaryCode placeholder="Apothecary Code" id="apothecary-code">
+      </span>
+      <span id="herbalist-group">
+        <label for="herbalist-code">Enter Herbalist Code:</label>
+        <input type="text" name="herbalist-code" #herbalistCode placeholder="Herbalist Code" id="herbalist-code">
+      </span>
+    </div>
+  </section>
+  <section id="bottom">
+    <div id="bt-group">
+      <button type="button" [disabled]="registrationData?.status === RegistrationStatus.PREVIOUSLY_REGISTERED" (click)="registerCodes(apothecaryCode.value, herbalistCode.value)">Register Codes</button>
+      <button type="button" [disabled]="!registrationData?.isApothecaryAvailable" class="bt-start" [class.available]="registrationData?.isApothecaryAvailable"  (click)="start(Role.APOTHECARY)">Start As Apothecary</button>
+      <button type="button" [disabled]="!registrationData?.isHerbalistAvailable" class="bt-start" [class.available]="registrationData?.isHerbalistAvailable" (click)="start(Role.HERBALIST)">Start As Herbalist</button>
+    </div>
+  </section>
+</main>

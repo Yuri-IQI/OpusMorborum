@@ -1,0 +1,4 @@
+export enum RegistrationStatus {
+  PREVIOUSLY_REGISTERED = 'PREVIOUSLY_SIGNED',
+  REGISTERED = 'REGISTERED'
+}
