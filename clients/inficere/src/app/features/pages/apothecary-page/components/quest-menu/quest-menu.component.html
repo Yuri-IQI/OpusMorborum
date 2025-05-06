@@ -1,0 +1,35 @@
+<div id="collapsable-caller" [ngClass]="collapsableCallerClass">
+    <svg
+        (click)="toggleRequestsMenu()"
+        class="collapsable-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="#666055"
+        height="60px"
+        width="40px"
+        viewBox="6 0 12 8">
+        <g transform="rotate(45 8 8)">
+        <path d="M11.532 10.341H9.536v-9h-9v-2h11z"></path>
+        </g>
+    </svg>
+</div>
+<section id="quests-menu" *ngIf="questMenuExpanded">
+    <div id="filter-options">
+        <app-filter-options
+            [currentFilter]="currentFilter"
+            (selectedFilter)="selectFilter($event)">
+        </app-filter-options>
+    </div>
+    <div id="in-menu-display">
+        <ng-container [ngSwitch]="inMenuDisplay">
+            <div id="filter-area" *ngSwitchCase="DisplayEnum.FILTER">
+            </div>
+            
+            <div id="quests-container" *ngSwitchCase="DisplayEnum.DEFAULT">
+            </div>
+            
+            <div *ngSwitchCase="DisplayEnum.NOT_FOUND">
+                <h4>Not Found</h4>
+            </div>
+        </ng-container>
+    </div>
+</section>

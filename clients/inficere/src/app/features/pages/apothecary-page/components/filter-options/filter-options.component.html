@@ -1,0 +1,13 @@
+<div id="filter-option-container">
+    <h3
+        class="filter-option"
+        *ngFor="let filterKey of filterList"
+        [attr.id]="filterKey"
+        [class.selected]="currentFilter?.filterType === filterKey"
+        (click)="selectFilter(filterKey)"
+        [matTooltip]="currentFilter?.filterType === filterKey ? (currentFilter?.filterValue || '') : ''"
+        matTooltipPosition="above"
+    >
+    {{ filterMap.get(filterKey) }}
+    </h3>
+</div>

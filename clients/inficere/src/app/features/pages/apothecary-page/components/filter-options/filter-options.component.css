@@ -1,0 +1,17 @@
+#filter-option-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0.2em;
+}
+
+.filter-option {
+    cursor: pointer;
+    padding-left: 0.78em;
+    padding-right: 0.78em;
+    margin: 1% 0;
+}
+
+.selected {
+    color: #dbab81;
+}

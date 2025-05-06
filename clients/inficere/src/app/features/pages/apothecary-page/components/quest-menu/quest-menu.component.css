@@ -1,0 +1,36 @@
+.collapsable-caller {
+	display: flex;
+	align-items: center;
+}
+
+.collapsable-caller svg {
+	cursor: pointer;
+}
+
+.inverted-collapsable-caller {
+	display: flex;
+	align-items: center;
+	transform: rotate(180deg);
+}
+
+.inverted-collapsable-caller svg {
+	cursor: pointer;
+}
+
+#quests-menu {
+    border-top: 2px solid #736050;
+    border-bottom: 2px solid #736050;
+    border-right: 1px solid #736050;
+    border-radius: 8px;
+    background-color: #48444091;
+    box-shadow: 2px 3px 4px black;
+}
+
+.collapsable-icon {
+	-webkit-filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7));
+	filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7));
+}
+
+.collapsable-icon:hover {
+	filter: invert(80%) sepia(5%) saturate(5%) hue-rotate(85deg) brightness(109.5%) contrast(109.6%) drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7));
+}

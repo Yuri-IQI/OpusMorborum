@@ -1,0 +1,7 @@
+export enum RequestStatusEnum {
+    UNAVAILABLE = 'UNAVAILABLE',
+    AVAILABLE = 'AVAILABLE',
+    REJECTED = 'REJECTED',
+    FULFILLED = 'FULFILLED',
+    ACCEPTED = 'ACCEPTED'
+}

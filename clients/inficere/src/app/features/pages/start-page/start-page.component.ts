@@ -4,9 +4,9 @@ import { RegistrationData } from '../../../shared/types/interfaces/registration-
 import { RegistrationStatus } from '../../../shared/types/enums/registration-status';
 import { environment } from '../../../shared/environment/environment';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
-import { RegistrationService } from '../../services/registration-service.service';
 import { RoleAssignment } from '../../../shared/types/interfaces/role-assignment';
 import { Router } from '@angular/router';
+import { RegistrationService } from '../../../core/services/registration-service.service';
 
 @Component({
   selector: 'app-start-page',

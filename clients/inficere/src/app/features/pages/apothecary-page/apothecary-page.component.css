@@ -1,0 +1,13 @@
+main {
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+  
+#quest-menu {
+    display: flex;
+    flex-direction: row-reverse;
+    max-width: 50%;
+}
+  
